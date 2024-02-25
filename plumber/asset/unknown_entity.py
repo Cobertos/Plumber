@@ -12,4 +12,9 @@ def import_unknown_entity(entity: UnknownEntity, collection: Collection) -> None
     obj.rotation_euler = entity.rotation()
     obj.scale = entity.scale()
 
+    # Copy over all custom properties, obj is dict-like but does not implement
+    # .update
+    for k,v in entity.properties().items():
+        obj[k] = v
+
     collection.objects.link(obj)
